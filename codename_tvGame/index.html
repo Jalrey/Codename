@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Code Names</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="header-content">
+          <div class="turn-info">
+              <h1 id="turn-display">Code Name</h1>
+              <p id="guesses-left"></p>
+          </div>
+          <div class="turn-inputs">
+              <input type="number" disabled id="number-input" placeholder="#">
+              <input type="text" disabled id="clue-input" placeholder="Enter clue...">
+              
+              <button id="start-turn">Start Turn</button>
+          </div>
+      </div>
+  </header>
+
+    <div class="game-container">
+      <div class="side-info" id="red-side">
+          <h3>Red Team</h3>
+          <p><span id="red-cards-left"></span></p>
+          <div id="red-past-clues">
+              <h4></h4>
+          </div>
+      </div>
+      <div class="board"></div>
+      <div class="side-info" id="blue-side">
+          <h3>Blue Team</h3>
+          <p><span id="blue-cards-left"></span></p>
+          <div id="blue-past-clues">
+              <h4></h4>
+          </div>
+      </div>
+  </div>
+    <div class="board"></div>
+       </div>
+    <div class="buttons">
+      <button id="end-turn" class="button invisible-button">End Turn</button>
+      <button id="newGameButton" class="button">New Game</button>
+      <button id="spy-cheat-sheet" class="button invisible-button">Spies Cheatsheet</button>
+
+    </div>
+    <footer>
+      <p>Created by Jade Reyes</p>
+  </footer>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="closeButton">&times;</span>
+        <h2>Game Settings</h2>
+
+        <label for="numWords" class="input-label">Number of words:</label>
+        <input type="number" id="numWords" name="numWords" value="25" class="input-field"><br><br>
+
+        <label for="greenPercentage" class="input-label">Gano kabastos?:</label>
+        <input type="range" id="greenPercentage" name="greenPercentage" min="0" max="100" value="50" class="slider"><br><br>
+
+        <label class="input-label">Starting Team:</label><br>
+        <label class="radio-label">
+            <input type="radio" name="team" value="red"> Red
+        </label>
+        <label class="radio-label">
+            <input type="radio" name="team" value="blue"> Blue
+        </label><br><br>
+
+        <button id="startButton" class="button">Start</button>
+        <button id="cancelButton" class="button">Cancel</button>
+    </div>
+</div>
+<div id="spyModal" class="modal">
+  <div class="modal-content">
+      <span class="close-button" onclick="closeSpyModal()">&times;</span>
+      <h2>Spy View</h2>
+      <div class="board spy-board"></div>
+      <button onclick="downloadModalScreenshot()" class = "button">Download Screenshot</button>
+  </div>
+</div>
+
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+  </body>
+</html>
