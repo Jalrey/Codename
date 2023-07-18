@@ -1,15 +1,24 @@
+/*
+ * Use this CSS to learn some intersting techniques,
+ * in case you're wondering how I built the UI.
+ * Have fun! 😁
+ */
+
 * {
   box-sizing: border-box;
 }
 
-body,
-html {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f4f4f4;
+/* Rest of the styles remain unchanged */
+
+
+
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f4f4f4;
 }
 
 header {
@@ -23,14 +32,12 @@ header {
 
 .game-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   margin: 20px;
 }
 
 .side-info {
-  width: 100%;
-  max-width: 250px;
+  width: 20%;
   padding: 20px;
   text-align: center;
   background-color: #ecf0f1;
@@ -40,11 +47,18 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+
+main {
+  padding: 40px;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
+
 
 .card {
   background-color: #ecf0f1;
@@ -52,10 +66,68 @@ header {
   padding: 40px 20px;
   text-align: center;
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 700
   cursor: pointer;
   user-select: none;
-  border-radius: 10px;
+  border-radius: 10px; /* This line adds rounded corners */
+}
+
+.card-spy {
+  background-color: #ecf0f1;
+  color: rgb(83, 45, 2);
+  padding: 10px 5px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700
+  cursor: pointer;
+  user-select: none;
+  border-radius: 10px; /* This line adds rounded corners */
+}
+
+
+.card.red {
+  background-color: #e74c3c;
+}
+
+.card.blue {
+  background-color: #3498db;
+}
+
+.card.black {
+  background-color: #6c6d6d;
+}
+
+.card.neutral {
+  background-color: #f7e497;
+}
+
+.card.shot::after {
+  content: ' 🍺';
+}
+
+
+.card-spy.red {
+  background-color: #e74c3c;
+}
+
+.card-spy.blue {
+  background-color: #3498db;
+}
+
+.card-spy.black {
+  background-color: #6c6d6d;
+}
+
+.card-spy.neutral {
+  background-color: #f7e497;
+}
+
+.card-spy.shot::after {
+  content: ' 🍺';
+}
+
+.card.hidden {
+  background-color: #D3D3D3;
 }
 
 .controls {
@@ -70,12 +142,12 @@ header {
   padding: 10px 20px;
   margin: 0 10px;
   cursor: pointer;
-  font-size: 24px;
-  border-radius: 10px;
+  font-size: 36px;
+  border-radius: 10px
 }
 
-.invisible-button {
-  display: none;
+.invisible-button{
+  display: none
 }
 
 footer {
@@ -83,7 +155,8 @@ footer {
   color: white;
   text-align: center;
   padding: 20px;
-  margin: 20px;
+  margin: 20px
+  
 }
 
 .card.revealed {
@@ -91,8 +164,8 @@ footer {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   transform: scale(0.97);
   transition: transform 0.2s ease-in-out;
+  
 }
-
 .turn-red {
   background-color: #c0392b;
   transition: transform 0.5s ease-in-out;
@@ -104,48 +177,52 @@ footer {
 }
 
 #clue-input {
-  padding: 10px;
-  margin: 10px;
-  font-size: 18px;
+  padding: 20px 10px;
+  margin: 10 10px;
+  font-size: 24px;
 }
 
 #number-input {
-  padding: 10px;
-  width: 60px;
-  margin: 10px;
-  font-size: 18px;
+  padding: 20px 0px;
+  width: 80px;
+  margin: 10 10px;
+  font-size: 24px;
   text-align: center;
 }
 
 #start-turn {
-  background-color: #d3d3d3;
+  background-color: #D3D3D3;
   color: #2c3e50;
   border: none;
   padding: 10px 20px;
   margin: 0 10px;
   cursor: pointer;
+  font-size: 36px;
+  border-radius: 10px
+}
+
+#guesses-left{
+
+  font-size: 24px
+
+}
+
+#red-side{
+  color:#850f02;
   font-size: 24px;
-  border-radius: 10px;
 }
 
-#guesses-left {
-  font-size: 18px;
-}
-
-#red-side {
-  color: #850f02;
-  font-size: 18px;
-}
-
-#blue-side {
-  color: #033f67;
-  font-size: 18px;
+#blue-side{
+  color:#033f67;
+  font-size: 24px
 }
 
 .buttons {
   text-align: center;
   width: 100%;
 }
+
+
 
 .modal {
   display: none;
@@ -155,18 +232,18 @@ footer {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 9999; /* Ensure the modal appears on top */
 }
 
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: 10% auto;
+  margin: 10% auto; /* Increase the margin for better centering */
   padding: 20px;
   border: 1px solid #888;
-  width: 90%;
-  max-width: 500px;
-  font-size: 18px;
+  width: 60%; /* Adjust the width as needed */
+  max-width: 500px; /* Set a maximum width to avoid stretching on larger screens */
+  font-size: 20px; /* Decrease the font size for better readability */
   text-align: center;
 }
 
@@ -174,13 +251,13 @@ footer {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px; /* Adjust the font size as needed */
 }
 
 .input-field {
-  width: 100%;
+  width: 25%;
   padding: 10px;
-  font-size: 18px;
+  font-size: 36px; /* Decrease the font size for better fit */
   text-align: center;
 }
 
@@ -189,15 +266,15 @@ footer {
 }
 
 .radio-label {
-  margin-right: 10px;
-  font-size: 18px;
+  margin-right: 10px; /* Decrease the margin for better alignment */
+  font-size: 24px; /* Adjust the font size as needed */
 }
 
 .close-button {
   position: absolute;
   top: 10px;
-  right: 10px;
-  font-size: 18px;
+  right: 10px; /* Adjust the positioning for better appearance */
+  font-size: 24px; /* Adjust the font size as needed */
   font-weight: bold;
   cursor: pointer;
 }
@@ -208,13 +285,17 @@ footer {
 
 .button:hover {
   background-color: #2c3e50;
-  color: #fff;
+  color: #fff; /* Add a text color change on hover */
 }
+
 
 /* Spy Modal */
 #spyModal {
   display: none;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -223,17 +304,24 @@ footer {
 }
 
 #spyModal .modal-content {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border-radius: 8px;
+  width: 80%; /* Adjust the width as needed */
+  height: 90%; /* Adjust the height as needed */
   display: inline-block;
-  max-width: 90%;
+  overflow: auto; /* Add scrollbars if content exceeds the modal's dimensions */
 }
 
-#spyModal .spy-board .card.hidden {
+
+
+#spyModal .spy-board{
+  /* Here, you can customize how you want the cards to be displayed when revealed to spies */
+  /* Example: remove the hidden class */
   opacity: 1;
+  margin: 20px
 }
