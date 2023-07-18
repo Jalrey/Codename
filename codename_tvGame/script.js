@@ -764,7 +764,7 @@ btnSpiesCheatSheet.addEventListener('click', function () {
 
     function createCard(word, team) {
       const card = document.createElement('div');
-      card.className = `card ${team}`;
+      card.className = `card-spy ${team}`;
       card.setAttribute('data-word', word);
       card.innerText = word.toUpperCase();
       return card;
@@ -787,12 +787,72 @@ function closeSpyModal() {
 }
 
 // Save a screenshot
+// function downloadModalScreenshot() {
+//   var modal = document.getElementById('spyModal'); // Replace 'yourModalId' with the ID of your modal
+
+//   if (modal) {
+//     // Temporarily display the modal
+//     modal.style.display = 'block';
+
+//     // Take screenshot
+//     html2canvas(modal, { logging: true, useCORS: true })
+//       .then(function (canvas) {
+//         // Hide the modal again
+//         modal.style.display = 'none';
+
+//         // Download the screenshot
+//         var link = document.createElement('a');
+//         link.download = 'CodeName_Cheatsheet.png';
+//         link.href = canvas.toDataURL();
+//         document.body.appendChild(link); // Required for Firefox
+//         link.click();
+//         document.body.removeChild(link);
+//       })
+//       .catch(function (error) {
+//         console.error('Error capturing canvas:', error);
+//       });
+//   } else {
+//     console.error('Modal element not found');
+//   }
+// }
+
+// Close the spies modal
+// function closeSpyModal() {
+//   document.getElementById('spyModal').style.display = 'none';
+// }
+
+// Save a screenshot
 function downloadModalScreenshot() {
   var modal = document.getElementById('spyModal'); // Replace 'yourModalId' with the ID of your modal
 
   if (modal) {
     // Temporarily display the modal
     modal.style.display = 'block';
+
+    // Resize the cards to fit the available space
+    var cards = modal.querySelectorAll('.card');
+    var cardCount = cards.length;
+    var cardWidth = 100;
+    var cardHeight = 100;
+
+    // Adjust the card size based on the available space
+    var availableWidth = modal.clientWidth;
+    var availableHeight = modal.clientHeight;
+
+    var maxCardWidth = Math.floor(
+      availableWidth / Math.ceil(Math.sqrt(cardCount))
+    );
+    var maxCardHeight = Math.floor(
+      availableHeight / Math.ceil(Math.sqrt(cardCount))
+    );
+
+    cardWidth = Math.min(cardWidth, maxCardWidth);
+    cardHeight = Math.min(cardHeight, maxCardHeight);
+
+    cards.forEach(function (card) {
+      card.style.width = cardWidth + 'px';
+      card.style.height = cardHeight + 'px';
+    });
 
     // Take screenshot
     html2canvas(modal, { logging: true, useCORS: true })

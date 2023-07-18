@@ -72,6 +72,17 @@ main {
   border-radius: 10px; /* This line adds rounded corners */
 }
 
+.card-spy {
+  background-color: #ecf0f1;
+  color: rgb(83, 45, 2);
+  padding: 10px 5px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700
+  cursor: pointer;
+  user-select: none;
+  border-radius: 10px; /* This line adds rounded corners */
+}
 
 
 .card.red {
@@ -91,6 +102,27 @@ main {
 }
 
 .card.shot::after {
+  content: ' 🍺';
+}
+
+
+.card-spy.red {
+  background-color: #e74c3c;
+}
+
+.card-spy.blue {
+  background-color: #3498db;
+}
+
+.card-spy.black {
+  background-color: #6c6d6d;
+}
+
+.card-spy.neutral {
+  background-color: #f7e497;
+}
+
+.card-spy.shot::after {
   content: ' 🍺';
 }
 
@@ -261,6 +293,9 @@ footer {
 #spyModal {
   display: none;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -269,19 +304,24 @@ footer {
 }
 
 #spyModal .modal-content {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  display: inline-block; /* This will make the modal content adjust its width */
-  max-width: 90%;
+  width: 80%; /* Adjust the width as needed */
+  height: 90%; /* Adjust the height as needed */
+  display: inline-block;
+  overflow: auto; /* Add scrollbars if content exceeds the modal's dimensions */
 }
 
-#spyModal .spy-board .card.hidden {
+
+
+#spyModal .spy-board{
   /* Here, you can customize how you want the cards to be displayed when revealed to spies */
   /* Example: remove the hidden class */
   opacity: 1;
+  margin: 20px
 }
