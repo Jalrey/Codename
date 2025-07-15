@@ -830,7 +830,7 @@ function downloadModalScreenshot() {
     modal.style.display = 'block';
 
     // Resize the cards to fit the available space
-    var cards = modal.querySelectorAll('.card');
+    var cards = modal.querySelectorAll('.card-spy');
     var cardCount = cards.length;
     var cardWidth = 100;
     var cardHeight = 100;
