@@ -569,26 +569,28 @@ let spyQRGenerator;
 let spyImageUrl = '';
 
 const captureSpyImage = function () {
-  const cards = document.querySelectorAll('.board .card');
-  const original = [];
-  cards.forEach(card => {
-    original.push(card.classList.contains('hidden'));
+  const boardElement = document.querySelector('.board');
+  const clone = boardElement.cloneNode(true);
+  clone.querySelectorAll('.card.hidden').forEach(card => {
     card.classList.remove('hidden');
   });
-  return html2canvas(document.querySelector('.board'), { logging: false, useCORS: true })
+  clone.style.position = 'absolute';
+  clone.style.left = '-9999px';
+  clone.style.top = '-9999px';
+  document.body.appendChild(clone);
+  return html2canvas(clone, { logging: false, useCORS: true })
     .then(canvas => {
       spyImageUrl = canvas.toDataURL();
+      localStorage.setItem('spyImage', spyImageUrl);
     })
     .finally(() => {
-      cards.forEach((card, idx) => {
-        if (original[idx]) card.classList.add('hidden');
-      });
+      clone.remove();
     });
 };
 
 const generateSpyQR = function () {
   const base = window.location.href.replace(/[^/]*$/, '');
-  const url = `${base}spy.html?img=${encodeURIComponent(spyImageUrl)}`;
+  const url = `${base}spy.html`;
   spyQRGenerator = new QRious({
     element: spyQR,
     value: url,

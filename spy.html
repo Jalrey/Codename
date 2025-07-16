@@ -13,8 +13,7 @@
   <h2>Answer Key</h2>
   <img id="answer-img" alt="Answer Key" />
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const data = params.get('img');
+    const data = localStorage.getItem('spyImage');
     if (data) {
       document.getElementById('answer-img').src = data;
     }
