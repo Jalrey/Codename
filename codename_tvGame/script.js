@@ -757,7 +757,7 @@ btnSpiesCheatSheet.addEventListener('click', function () {
     'Huy sure kang walang ibang nakatingin bukod sa spies ah'
   );
   if (userConfirmed) {
-    document.getElementById('spyModal').style.display = 'block';
+    document.getElementById('spyModal').style.display = 'flex';
 
     const spyBoard = document.querySelector('.spy-board');
     spyBoard.innerHTML = ''; // Clear the board if re-opening
@@ -827,7 +827,7 @@ function downloadModalScreenshot() {
 
   if (modal) {
     // Temporarily display the modal
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
 
     // Resize the cards to fit the available space
     var cards = modal.querySelectorAll('.card-spy');
