@@ -378,6 +378,7 @@ const redPastClues = document.querySelector('#red-past-clues');
 const bluePastClues = document.querySelector('#blue-past-clues');
 const redCardsLeft = document.querySelector('#red-cards-left');
 const blueCardsLeft = document.querySelector('#blue-cards-left');
+const btnSpiesCheatSheet = document.querySelector('#spy-cheat-sheet');
 const spyQR = document.querySelector('#spy-qr');
 
 const startButton = document.querySelector('#startButton');
@@ -564,21 +565,33 @@ const enableHiddenCards = function () {
   });
 };
 
-const generateSpyText = function () {
-  const blue = [...firstTeam.spyWords].join(', ');
-  const red = [...secondTeam.spyWords].join(', ');
-  const kill = [...killWord].join(', ');
-  const drink = [...drinkWord].join(', ');
-  return `Blue team: ${blue}\nRed team: ${red}\nKill word: ${kill}\nDrink words: ${drink}`;
+let spyQRGenerator;
+let spyImageUrl = '';
+
+const captureSpyImage = function () {
+  const cards = document.querySelectorAll('.board .card');
+  const original = [];
+  cards.forEach(card => {
+    original.push(card.classList.contains('hidden'));
+    card.classList.remove('hidden');
+  });
+  return html2canvas(document.querySelector('.board'), { logging: false, useCORS: true })
+    .then(canvas => {
+      spyImageUrl = canvas.toDataURL();
+    })
+    .finally(() => {
+      cards.forEach((card, idx) => {
+        if (original[idx]) card.classList.add('hidden');
+      });
+    });
 };
 
-let spyQRGenerator;
-
 const generateSpyQR = function () {
-  const text = generateSpyText();
+  const base = window.location.href.replace(/[^/]*$/, '');
+  const url = `${base}spy.html?img=${encodeURIComponent(spyImageUrl)}`;
   spyQRGenerator = new QRious({
     element: spyQR,
-    value: text,
+    value: url,
     size: 200,
   });
 };
@@ -742,10 +755,11 @@ startButton.addEventListener('click', function () {
 
   displayRemainingCards();
 
-  //Display the END Turn button and show QR code for spies
+  //Prepare spy QR and display END Turn button
 
-  spyQR.classList.remove('invisible-button');
-  generateSpyQR();
+  captureSpyImage().then(() => {
+    btnSpiesCheatSheet.classList.remove('invisible-button');
+  });
   endTurnButton.classList.remove('invisible-button');
 });
 //EVENT HANDLER FOR START TURN
@@ -770,6 +784,16 @@ startTurnButton.addEventListener('click', function () {
 
 endTurnButton.addEventListener('click', function () {
   endTheTurn();
+});
+
+btnSpiesCheatSheet.addEventListener('click', function () {
+  var userConfirmed = confirm(
+    'Huy sure kang walang ibang nakatingin bukod sa spies ah'
+  );
+  if (userConfirmed) {
+    generateSpyQR();
+    document.getElementById('spyModal').style.display = 'block';
+  }
 });
 
 //Close the spies modal
