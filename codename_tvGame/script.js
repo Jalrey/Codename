@@ -757,26 +757,7 @@ btnSpiesCheatSheet.addEventListener('click', function () {
     'Huy sure kang walang ibang nakatingin bukod sa spies ah'
   );
   if (userConfirmed) {
-    document.getElementById('spyModal').style.display = 'flex';
-
-    const spyBoard = document.querySelector('.spy-board');
-    spyBoard.innerHTML = ''; // Clear the board if re-opening
-
-    function createCard(word, team) {
-      const card = document.createElement('div');
-      card.className = `card-spy ${team}`;
-      card.setAttribute('data-word', word);
-      card.innerText = word.toUpperCase();
-      return card;
-    }
-
-    words.forEach(({ word, team }) => {
-      const card = createCard(word, team);
-      if (drinkWord.has(card.dataset.word)) {
-        card.classList.add('shot');
-      }
-      spyBoard.appendChild(card);
-    });
+    window.open('../cheatsheet.html', '_blank');
   }
 });
 

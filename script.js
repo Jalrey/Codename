@@ -752,10 +752,12 @@ endTurnButton.addEventListener('click', function () {
   endTheTurn();
 });
 
-btnSpiesCheatSheet.addEventListener("click", function () {
-  var userConfirmed = confirm("Huy sure kang walang ibang nakatingin bukod sa spies ah");
+btnSpiesCheatSheet.addEventListener('click', function () {
+  var userConfirmed = confirm(
+    'Huy sure kang walang ibang nakatingin bukod sa spies ah'
+  );
   if (userConfirmed) {
-    window.open("cheatsheet.html", "_blank");
+    window.open('./cheatsheet.html', '_blank');
   }
 });
 
