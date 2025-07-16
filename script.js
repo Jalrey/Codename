@@ -581,6 +581,11 @@ const captureSpyImage = function () {
   return html2canvas(clone, { logging: false, useCORS: true, scale: 0.5 })
     .then(canvas => {
       spyImageUrl = canvas.toDataURL();
+      try {
+        localStorage.setItem('spyImage', spyImageUrl);
+      } catch (e) {
+        console.error('Error saving spy image', e);
+      }
     })
     .finally(() => {
       clone.remove();
@@ -588,8 +593,7 @@ const captureSpyImage = function () {
 };
 
 const generateSpyQR = function () {
-  const base = window.location.href.replace(/[^/]*$/, '');
-  const url = `${base}spy.html?img=${encodeURIComponent(spyImageUrl)}`;
+  const url = 'https://codename-drinking.netlify.app/spy.html';
   spyQRGenerator = new QRious({
     element: spyQR,
     value: url,

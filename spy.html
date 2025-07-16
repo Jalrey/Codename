@@ -13,10 +13,11 @@
   <h2>Answer Key</h2>
   <img id="answer-img" alt="Answer Key" />
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const img = params.get('img');
+    const img = localStorage.getItem('spyImage');
     if (img) {
       document.getElementById('answer-img').src = img;
+    } else {
+      document.body.insertAdjacentHTML('beforeend', '<p>No answer key found.</p>');
     }
   </script>
 </body>
