@@ -723,6 +723,10 @@ startButton.addEventListener('click', function () {
 
   displayRemainingCards();
 
+  // expose spy words globally before cheatsheet can be opened
+  window.words = words;
+  window.drinkWord = drinkWord;
+
   //Display the END Turn and Spies Cheat sheet button
 
   btnSpiesCheatSheet.classList.remove('invisible-button');
