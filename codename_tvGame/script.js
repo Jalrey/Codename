@@ -578,10 +578,9 @@ const captureSpyImage = function () {
   clone.style.left = '-9999px';
   clone.style.top = '-9999px';
   document.body.appendChild(clone);
-  return html2canvas(clone, { logging: false, useCORS: true })
+  return html2canvas(clone, { logging: false, useCORS: true, scale: 0.5 })
     .then(canvas => {
       spyImageUrl = canvas.toDataURL();
-      localStorage.setItem('spyImage', spyImageUrl);
     })
     .finally(() => {
       clone.remove();
@@ -590,7 +589,7 @@ const captureSpyImage = function () {
 
 const generateSpyQR = function () {
   const base = window.location.href.replace(/[^/]*$/, '');
-  const url = `${base}spy.html`;
+  const url = `${base}spy.html?img=${encodeURIComponent(spyImageUrl)}`;
   spyQRGenerator = new QRious({
     element: spyQR,
     value: url,
