@@ -691,6 +691,10 @@ startButton.addEventListener('click', function () {
 
   words.sort(() => 0.5 - Math.random());
 
+  // expose the populated arrays for the cheat sheet window
+  window.words = words;
+  window.drinkWord = drinkWord;
+
   //CREATES THE CARDS ON THE BOARD
 
   function createCard(word, team) {
