@@ -379,6 +379,7 @@ const bluePastClues = document.querySelector('#blue-past-clues');
 const redCardsLeft = document.querySelector('#red-cards-left');
 const blueCardsLeft = document.querySelector('#blue-cards-left');
 const btnSpiesCheatSheet = document.querySelector('#spy-cheat-sheet');
+const spyQR = document.querySelector('#spy-qr');
 
 const startButton = document.querySelector('#startButton');
 const cancelButton = document.querySelector('#cancelButton');
@@ -564,6 +565,42 @@ const enableHiddenCards = function () {
   });
 };
 
+let spyQRGenerator;
+let spyImageUrl = '';
+
+const captureSpyImage = function () {
+  const boardElement = document.querySelector('.board');
+  const clone = boardElement.cloneNode(true);
+  clone.querySelectorAll('.card.hidden').forEach(card => {
+    card.classList.remove('hidden');
+  });
+  clone.style.position = 'absolute';
+  clone.style.left = '-9999px';
+  clone.style.top = '-9999px';
+  document.body.appendChild(clone);
+  return html2canvas(clone, { logging: false, useCORS: true, scale: 0.5 })
+    .then(canvas => {
+      spyImageUrl = canvas.toDataURL();
+      try {
+        localStorage.setItem('spyImage', spyImageUrl);
+      } catch (e) {
+        console.error('Error saving spy image', e);
+      }
+    })
+    .finally(() => {
+      clone.remove();
+    });
+};
+
+const generateSpyQR = function () {
+  const url = 'https://codename-drinking.netlify.app/spy.html';
+  spyQRGenerator = new QRious({
+    element: spyQR,
+    value: url,
+    size: 200,
+  });
+};
+
 const endTheTurn = function () {
   enableInput();
   numGuessTurn.value = '';
@@ -723,9 +760,11 @@ startButton.addEventListener('click', function () {
 
   displayRemainingCards();
 
-  //Display the END Turn and Spies Cheat sheet button
+  //Prepare spy QR and display END Turn button
 
-  btnSpiesCheatSheet.classList.remove('invisible-button');
+  captureSpyImage().then(() => {
+    btnSpiesCheatSheet.classList.remove('invisible-button');
+  });
   endTurnButton.classList.remove('invisible-button');
 });
 //EVENT HANDLER FOR START TURN
@@ -757,26 +796,8 @@ btnSpiesCheatSheet.addEventListener('click', function () {
     'Huy sure kang walang ibang nakatingin bukod sa spies ah'
   );
   if (userConfirmed) {
+    generateSpyQR();
     document.getElementById('spyModal').style.display = 'block';
-
-    const spyBoard = document.querySelector('.spy-board');
-    spyBoard.innerHTML = ''; // Clear the board if re-opening
-
-    function createCard(word, team) {
-      const card = document.createElement('div');
-      card.className = `card-spy ${team}`;
-      card.setAttribute('data-word', word);
-      card.innerText = word.toUpperCase();
-      return card;
-    }
-
-    words.forEach(({ word, team }) => {
-      const card = createCard(word, team);
-      if (drinkWord.has(card.dataset.word)) {
-        card.classList.add('shot');
-      }
-      spyBoard.appendChild(card);
-    });
   }
 });
 
