@@ -378,7 +378,7 @@ const redPastClues = document.querySelector('#red-past-clues');
 const bluePastClues = document.querySelector('#blue-past-clues');
 const redCardsLeft = document.querySelector('#red-cards-left');
 const blueCardsLeft = document.querySelector('#blue-cards-left');
-const btnSpiesCheatSheet = document.querySelector('#spy-cheat-sheet');
+const spyQR = document.querySelector('#spy-qr');
 
 const startButton = document.querySelector('#startButton');
 const cancelButton = document.querySelector('#cancelButton');
@@ -564,6 +564,25 @@ const enableHiddenCards = function () {
   });
 };
 
+const generateSpyText = function () {
+  const blue = [...firstTeam.spyWords].join(', ');
+  const red = [...secondTeam.spyWords].join(', ');
+  const kill = [...killWord].join(', ');
+  const drink = [...drinkWord].join(', ');
+  return `Blue team: ${blue}\nRed team: ${red}\nKill word: ${kill}\nDrink words: ${drink}`;
+};
+
+let spyQRGenerator;
+
+const generateSpyQR = function () {
+  const text = generateSpyText();
+  spyQRGenerator = new QRious({
+    element: spyQR,
+    value: text,
+    size: 200,
+  });
+};
+
 const endTheTurn = function () {
   enableInput();
   numGuessTurn.value = '';
@@ -723,9 +742,10 @@ startButton.addEventListener('click', function () {
 
   displayRemainingCards();
 
-  //Display the END Turn and Spies Cheat sheet button
+  //Display the END Turn button and show QR code for spies
 
-  btnSpiesCheatSheet.classList.remove('invisible-button');
+  spyQR.classList.remove('invisible-button');
+  generateSpyQR();
   endTurnButton.classList.remove('invisible-button');
 });
 //EVENT HANDLER FOR START TURN
@@ -750,34 +770,6 @@ startTurnButton.addEventListener('click', function () {
 
 endTurnButton.addEventListener('click', function () {
   endTheTurn();
-});
-
-btnSpiesCheatSheet.addEventListener('click', function () {
-  var userConfirmed = confirm(
-    'Huy sure kang walang ibang nakatingin bukod sa spies ah'
-  );
-  if (userConfirmed) {
-    document.getElementById('spyModal').style.display = 'block';
-
-    const spyBoard = document.querySelector('.spy-board');
-    spyBoard.innerHTML = ''; // Clear the board if re-opening
-
-    function createCard(word, team) {
-      const card = document.createElement('div');
-      card.className = `card-spy ${team}`;
-      card.setAttribute('data-word', word);
-      card.innerText = word.toUpperCase();
-      return card;
-    }
-
-    words.forEach(({ word, team }) => {
-      const card = createCard(word, team);
-      if (drinkWord.has(card.dataset.word)) {
-        card.classList.add('shot');
-      }
-      spyBoard.appendChild(card);
-    });
-  }
 });
 
 //Close the spies modal
