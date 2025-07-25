@@ -379,6 +379,8 @@ const bluePastClues = document.querySelector('#blue-past-clues');
 const redCardsLeft = document.querySelector('#red-cards-left');
 const blueCardsLeft = document.querySelector('#blue-cards-left');
 const btnSpiesCheatSheet = document.querySelector('#spy-cheat-sheet');
+const closeSpyModalButton = document.querySelector('#closeSpyModalButton');
+const downloadScreenshotButton = document.querySelector('#downloadScreenshot');
 
 const startButton = document.querySelector('#startButton');
 const cancelButton = document.querySelector('#cancelButton');
@@ -615,6 +617,14 @@ const selectCard = function (card) {
 document.getElementById('closeButton').addEventListener('click', function () {
   document.getElementById('myModal').style.display = 'none';
 });
+
+if (closeSpyModalButton) {
+  closeSpyModalButton.addEventListener('click', closeSpyModal);
+}
+
+if (downloadScreenshotButton) {
+  downloadScreenshotButton.addEventListener('click', downloadModalScreenshot);
+}
 
 //Add the boards
 newGameButton.addEventListener('click', function () {
