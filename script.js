@@ -753,7 +753,25 @@ endTurnButton.addEventListener('click', function () {
 });
 
 btnSpiesCheatSheet.addEventListener('click', function () {
-  window.open('./cheatsheet.html', '_blank');
+  const modal = document.getElementById('spyModal');
+  const spyBoard = modal.querySelector('.spy-board');
+
+  spyBoard.innerHTML = '';
+
+  words.forEach(function ({ word, team }) {
+    const card = document.createElement('div');
+    card.className = 'card-spy ' + team;
+    card.setAttribute('data-word', word);
+    card.innerText = word.toUpperCase();
+
+    if (drinkWord.has(word)) {
+      card.classList.add('shot');
+    }
+
+    spyBoard.appendChild(card);
+  });
+
+  modal.style.display = 'flex';
 });
 
 //Close the spies modal
