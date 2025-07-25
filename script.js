@@ -379,6 +379,8 @@ const bluePastClues = document.querySelector('#blue-past-clues');
 const redCardsLeft = document.querySelector('#red-cards-left');
 const blueCardsLeft = document.querySelector('#blue-cards-left');
 const btnSpiesCheatSheet = document.querySelector('#spy-cheat-sheet');
+const closeSpyModalButton = document.querySelector('#closeSpyModalButton');
+const downloadScreenshotButton = document.querySelector('#downloadScreenshot');
 
 const startButton = document.querySelector('#startButton');
 const cancelButton = document.querySelector('#cancelButton');
@@ -616,6 +618,14 @@ document.getElementById('closeButton').addEventListener('click', function () {
   document.getElementById('myModal').style.display = 'none';
 });
 
+if (closeSpyModalButton) {
+  closeSpyModalButton.addEventListener('click', closeSpyModal);
+}
+
+if (downloadScreenshotButton) {
+  downloadScreenshotButton.addEventListener('click', downloadModalScreenshot);
+}
+
 //Add the boards
 newGameButton.addEventListener('click', function () {
   //Selects the board and clears them
@@ -753,7 +763,25 @@ endTurnButton.addEventListener('click', function () {
 });
 
 btnSpiesCheatSheet.addEventListener('click', function () {
-  window.open('./cheatsheet.html', '_blank');
+  const modal = document.getElementById('spyModal');
+  const spyBoard = modal.querySelector('.spy-board');
+
+  spyBoard.innerHTML = '';
+
+  words.forEach(function ({ word, team }) {
+    const card = document.createElement('div');
+    card.className = 'card-spy ' + team;
+    card.setAttribute('data-word', word);
+    card.innerText = word.toUpperCase();
+
+    if (drinkWord.has(word)) {
+      card.classList.add('shot');
+    }
+
+    spyBoard.appendChild(card);
+  });
+
+  modal.style.display = 'flex';
 });
 
 //Close the spies modal
